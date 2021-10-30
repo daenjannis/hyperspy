@@ -22,7 +22,6 @@ import pytest
 from dask.threaded import get
 
 import hyperspy.api as hs
-from hyperspy import _lazy_signals
 from hyperspy._signals.lazy import _reshuffle_mixed_blocks, to_array
 from hyperspy.exceptions import VisibleDeprecationWarning
 
@@ -31,7 +30,7 @@ def _signal():
     ar = da.from_array(np.arange(6. * 9 * 7 * 11).reshape((6, 9, 7, 11)),
                        chunks=((2, 1, 3), (4, 5), (7,), (11,))
                        )
-    return _lazy_signals.LazySignal2D(ar)
+    return hs.signals.Signal2D(ar).as_lazy()
 
 @pytest.fixture
 def signal():
